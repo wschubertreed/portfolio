@@ -25,10 +25,20 @@ export async function POST(request: Request) {
       )
     }
 
+    // Get recipient email from environment variable
+    const recipientEmail = process.env.CONTACT_EMAIL
+    if (!recipientEmail) {
+      console.error('CONTACT_EMAIL environment variable is not set')
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      )
+    }
+
     // Send email using Resend
     const data = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // You'll update this with your domain later
-      to: 'your-email@example.com', // TODO: Replace with your actual email
+      to: recipientEmail,
       replyTo: email,
       subject: `Portfolio Contact from ${name}`,
       text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
