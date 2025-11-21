@@ -13,7 +13,7 @@ export function HeroSection({ artistName = 'Wildman', bio }: HeroSectionProps) {
           {artistName}
         </h1>
         {bio && (
-          <p className="text-xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl text-black max-w-3xl mx-auto leading-relaxed font-medium font-mono">
             {bio}
           </p>
         )}

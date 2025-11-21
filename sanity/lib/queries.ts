@@ -59,3 +59,11 @@ export const siteSettingsQuery = groq`
     socialLinks
   }
 `
+
+export const mammothQuery = groq`
+  *[_type == "mammoth"][0] {
+    image,
+    title,
+    description
+  }
+`

@@ -1,7 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Instagram, Music, Youtube, Mail } from 'lucide-react'
+import { Instagram, Music, Youtube } from 'lucide-react'
+import { ContactForm } from './ContactForm'
 
 interface SocialLinks {
   instagram?: string
@@ -26,16 +27,9 @@ export function Footer({ email, socialLinks }: FooterProps) {
             Get in Touch
           </h2>
 
-          {email && (
-            <div className="mb-8 text-center">
-              <a
-                href={`mailto:${email}`}
-                className="text-lg font-semibold text-black hover:opacity-70 transition-opacity"
-              >
-                {email}
-              </a>
-            </div>
-          )}
+          <div className="mb-8">
+            <ContactForm />
+          </div>
 
           <div className="grid grid-cols-2 gap-4">
             {socialLinks?.instagram && (
@@ -71,18 +65,6 @@ export function Footer({ email, socialLinks }: FooterProps) {
                 <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
                   <Youtube className="w-4 h-4 mr-2" />
                   YouTube
-                </a>
-              </Button>
-            )}
-            {email && (
-              <Button
-                variant="outline"
-                className="bg-primary-light border-black text-black font-medium rounded-xl"
-                asChild
-              >
-                <a href={`mailto:${email}`}>
-                  <Mail className="w-4 h-4 mr-2" />
-                  Email
                 </a>
               </Button>
             )}
