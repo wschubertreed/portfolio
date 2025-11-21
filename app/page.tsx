@@ -13,16 +13,18 @@ import {
   mammothQuery,
 } from '@/sanity/lib/queries'
 
-// Revalidate every 10 seconds in development, 60 seconds in production
-export const revalidate = process.env.NODE_ENV === 'development' ? 10 : 60
+// Static generation with on-demand revalidation via Sanity webhook
+// In dev, revalidate every 10 seconds for quick iteration
+// In prod, cache indefinitely until webhook triggers revalidation
+export const revalidate = process.env.NODE_ENV === 'development' ? 10 : false
 
 async function getData() {
   const [albums, filmScores, videoProjects, siteSettings, mammoth] = await Promise.all([
-    client.fetch(albumsQuery, {}, { cache: 'no-store' }),
-    client.fetch(filmScoresQuery, {}, { cache: 'no-store' }),
-    client.fetch(videoProjectsQuery, {}, { cache: 'no-store' }),
-    client.fetch(siteSettingsQuery, {}, { cache: 'no-store' }),
-    client.fetch(mammothQuery, {}, { cache: 'no-store' }),
+    client.fetch(albumsQuery),
+    client.fetch(filmScoresQuery),
+    client.fetch(videoProjectsQuery),
+    client.fetch(siteSettingsQuery),
+    client.fetch(mammothQuery),
   ])
 
   return {
