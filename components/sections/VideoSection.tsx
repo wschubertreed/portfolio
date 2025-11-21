@@ -21,10 +21,10 @@ interface VideoSectionProps {
 
 export function VideoSection({ videoProjects }: VideoSectionProps) {
   return (
-    <section id="video" className="min-h-screen py-20 bg-white">
+    <section id="video" className="min-h-screen py-20 bg-primary-light">
       <div className="container mx-auto px-6">
         <h2 className="text-[clamp(40px,8vw,80px)] font-extrabold leading-none tracking-tight text-black mb-12">
-          Video/Editing
+          Video
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {videoProjects.map((project) => (

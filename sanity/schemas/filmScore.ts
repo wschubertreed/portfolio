@@ -2,7 +2,7 @@ import { defineType, defineField } from 'sanity'
 
 export default defineType({
   name: 'filmScore',
-  title: 'Film Score',
+  title: 'Music - Film Scoring',
   type: 'document',
   fields: [
     defineField({

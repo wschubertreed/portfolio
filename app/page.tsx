@@ -1,7 +1,6 @@
 import { Navigation } from '@/components/Navigation'
 import { HeroSection } from '@/components/sections/HeroSection'
-import { MusicSection } from '@/components/sections/MusicSection'
-import { FilmSection } from '@/components/sections/FilmSection'
+import { MusicSection } from '@/components/sections/MusicSectionNew'
 import { VideoSection } from '@/components/sections/VideoSection'
 import { Footer } from '@/components/sections/Footer'
 import { client } from '@/sanity/lib/client'
@@ -41,8 +40,11 @@ export default async function Home() {
         artistName={siteSettings.artistName}
         bio={siteSettings.bio}
       />
-      {albums.length > 0 && <MusicSection albums={albums} />}
-      {filmScores.length > 0 && <FilmSection filmScores={filmScores} />}
+      {/* Music section with Wiley Beckett and Film Scoring */}
+      {(albums.length > 0 || filmScores.length > 0) && (
+        <MusicSection albums={albums} filmScores={filmScores} />
+      )}
+      {/* Video section */}
       {videoProjects.length > 0 && <VideoSection videoProjects={videoProjects} />}
       <Footer
         email={siteSettings.email}
