@@ -1,21 +1,33 @@
 'use client'
 
 import { Card } from '@/components/ui/card'
-import { urlFor } from '@/sanity/lib/image'
-import Image from 'next/image'
 
 interface Album {
   _id: string
-  title: string
-  artist: string
-  year: number
-  albumArt: any
   spotifyEmbedUrl: string
   description?: string
+  order?: number
 }
 
 interface MusicSectionProps {
   albums: Album[]
+}
+
+// Convert regular Spotify URL to embed URL
+function getSpotifyEmbedUrl(url: string): string {
+  if (!url) return ''
+
+  // If already an embed URL, return as is
+  if (url.includes('/embed/')) return url
+
+  // Convert regular URL to embed URL
+  // https://open.spotify.com/album/ID -> https://open.spotify.com/embed/album/ID
+  const match = url.match(/open\.spotify\.com\/(album|track|playlist)\/([a-zA-Z0-9]+)/)
+  if (match) {
+    return `https://open.spotify.com/embed/${match[1]}/${match[2]}`
+  }
+
+  return url
 }
 
 export function MusicSection({ albums }: MusicSectionProps) {
@@ -26,33 +38,20 @@ export function MusicSection({ albums }: MusicSectionProps) {
           Music
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {albums.map((album) => (
-            <Card key={album._id} className="bg-primary rounded-2xl shadow-sm p-6 space-y-6 border-2 border-black">
-              <div className="flex gap-6">
-                {album.albumArt && (
-                  <div className="relative w-32 h-32 flex-shrink-0 rounded-xl overflow-hidden border-2 border-black">
-                    <Image
-                      src={urlFor(album.albumArt).width(300).height(300).url()}
-                      alt={album.title}
-                      fill
-                      className="object-cover"
-                    />
+          {albums.map((album) => {
+            const embedUrl = getSpotifyEmbedUrl(album.spotifyEmbedUrl)
+            return (
+              <div key={album._id} className="space-y-4">
+                {album.description && (
+                  <div>
+                    <p className="text-sm text-black font-medium">{album.description}</p>
                   </div>
                 )}
-                <div className="flex-1">
-                  <h3 className="text-2xl font-bold text-black mb-1">{album.title}</h3>
-                  <p className="font-semibold text-black opacity-80">{album.artist}</p>
-                  <p className="text-sm text-black opacity-60">{album.year}</p>
-                  {album.description && (
-                    <p className="text-sm text-black mt-3">{album.description}</p>
-                  )}
-                </div>
-              </div>
 
-              {/* Spotify Embed */}
-              <div className="rounded-xl overflow-hidden border-2 border-black">
+                {/* Spotify Embed */}
                 <iframe
-                  src={album.spotifyEmbedUrl}
+                  style={{ borderRadius: '12px' }}
+                  src={embedUrl}
                   width="100%"
                   height="352"
                   frameBorder="0"
@@ -60,8 +59,8 @@ export function MusicSection({ albums }: MusicSectionProps) {
                   loading="lazy"
                 />
               </div>
-            </Card>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

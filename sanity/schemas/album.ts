@@ -6,57 +6,38 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'title',
-      title: 'Album Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'artist',
-      title: 'Artist Name',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'year',
-      title: 'Release Year',
-      type: 'number',
-      validation: (Rule) => Rule.required().min(1900).max(new Date().getFullYear() + 1),
-    }),
-    defineField({
-      name: 'albumArt',
-      title: 'Album Artwork',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
       name: 'spotifyEmbedUrl',
-      title: 'Spotify Embed URL',
+      title: 'Spotify URL',
       type: 'url',
-      description: 'The Spotify embed URL (e.g., https://open.spotify.com/embed/album/...)',
+      description: 'Paste any Spotify album/track/playlist URL (e.g., https://open.spotify.com/album/6QOtppixtmohxxNgvWggeP). It will automatically convert to embed format.',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'description',
-      title: 'Description',
+      title: 'Description (Optional)',
       type: 'text',
-      rows: 4,
+      rows: 3,
+      description: 'Add context or notes about this album (appears above the player)',
     }),
     defineField({
       name: 'order',
       title: 'Display Order',
       type: 'number',
       description: 'Lower numbers appear first',
+      initialValue: 0,
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'artist',
-      media: 'albumArt',
+      spotifyUrl: 'spotifyEmbedUrl',
+      description: 'description',
+    },
+    prepare({ spotifyUrl, description }) {
+      const albumId = spotifyUrl?.split('/').pop()?.split('?')[0] || 'Unknown'
+      return {
+        title: description || 'Spotify Album',
+        subtitle: albumId.slice(0, 22),
+      }
     },
   },
 })
