@@ -1,11 +1,13 @@
 'use client'
 
 import { VideoPlayer } from '@/components/VideoPlayer'
+import { urlFor } from '@/sanity/lib/image'
 
 interface VideoProject {
   _id: string
   title: string
   description?: string
+  thumbnail?: any
   videoFile?: {
     asset?: {
       url: string
@@ -37,6 +39,7 @@ export function VideoSection({ videoProjects }: VideoSectionProps) {
                 url={project.videoUrl}
                 videoFileUrl={project.videoFile?.asset?.url}
                 platform={project.platform}
+                thumbnail={project.thumbnail ? urlFor(project.thumbnail).url() : undefined}
               />
 
               {/* Title/Date and Description below player */}

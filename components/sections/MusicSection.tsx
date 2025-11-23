@@ -1,6 +1,7 @@
 'use client'
 
 import { VideoPlayer } from '@/components/VideoPlayer'
+import { urlFor } from '@/sanity/lib/image'
 
 interface Album {
   _id: string
@@ -13,6 +14,7 @@ interface FilmScore {
   _id: string
   title: string
   description?: string
+  thumbnail?: any
   videoFile?: {
     asset?: {
       url: string
@@ -96,6 +98,7 @@ export function MusicSection({ albums, filmScores }: MusicSectionProps) {
                     url={film.videoUrl}
                     videoFileUrl={film.videoFile?.asset?.url}
                     platform={film.platform}
+                    thumbnail={film.thumbnail ? urlFor(film.thumbnail).url() : undefined}
                   />
 
                   {/* Title/Date and Description below player */}
