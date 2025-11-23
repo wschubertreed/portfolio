@@ -5,6 +5,7 @@ import { urlFor } from '@/sanity/lib/image'
 
 interface Album {
   _id: string
+  title: string
   spotifyEmbedUrl: string
   description?: string
   order?: number
@@ -58,16 +59,12 @@ export function MusicSection({ albums, filmScores }: MusicSectionProps) {
             <h3 className="text-[clamp(32px,6vw,56px)] font-bold leading-none tracking-tight text-black mb-8">
               Wiley Beckett
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {albums.map((album) => {
                 const embedUrl = getSpotifyEmbedUrl(album.spotifyEmbedUrl)
                 return (
-                  <div key={album._id} className="space-y-4">
-                    {album.description && (
-                      <div>
-                        <p className="text-sm text-black font-medium">{album.description}</p>
-                      </div>
-                    )}
+                  <div key={album._id} className="space-y-3">
+                    {/* Spotify Player */}
                     <iframe
                       style={{ borderRadius: '12px' }}
                       src={embedUrl}
@@ -77,6 +74,18 @@ export function MusicSection({ albums, filmScores }: MusicSectionProps) {
                       allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                       loading="lazy"
                     />
+
+                    {/* Title and Description below player */}
+                    <div className="text-left">
+                      <h4 className="font-bold font-mono uppercase text-black text-lg leading-tight">
+                        {album.title}
+                      </h4>
+                      {album.description && (
+                        <p className="font-mono text-sm text-black opacity-80 mt-0.5">
+                          {album.description}
+                        </p>
+                      )}
+                    </div>
                   </div>
                 )
               })}

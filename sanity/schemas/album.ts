@@ -6,6 +6,12 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Album Title',
+      type: 'string',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'spotifyEmbedUrl',
       title: 'Spotify URL',
       type: 'url',
@@ -17,7 +23,6 @@ export default defineType({
       title: 'Description (Optional)',
       type: 'text',
       rows: 3,
-      description: 'Add context or notes about this album (appears above the player)',
     }),
     defineField({
       name: 'order',
@@ -29,13 +34,13 @@ export default defineType({
   ],
   preview: {
     select: {
+      title: 'title',
       spotifyUrl: 'spotifyEmbedUrl',
-      description: 'description',
     },
-    prepare({ spotifyUrl, description }) {
+    prepare({ title, spotifyUrl }) {
       const albumId = spotifyUrl?.split('/').pop()?.split('?')[0] || 'Unknown'
       return {
-        title: description || 'Spotify Album',
+        title: title || 'Spotify Album',
         subtitle: albumId.slice(0, 22),
       }
     },
