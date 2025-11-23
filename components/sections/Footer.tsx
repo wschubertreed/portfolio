@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Instagram, Music, Youtube } from 'lucide-react'
+import { Instagram, Linkedin, Music, Youtube } from 'lucide-react'
 import { ContactForm } from './ContactForm'
 
 interface SocialLinks {
@@ -11,6 +11,7 @@ interface SocialLinks {
   vimeo?: string
   twitter?: string
   website?: string
+  linkedin?: string
 }
 
 interface FooterProps {
@@ -65,6 +66,18 @@ export function Footer({ email, socialLinks }: FooterProps) {
                 <a href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
                   <Youtube className="w-4 h-4 mr-2" />
                   YouTube
+                </a>
+              </Button>
+            )}
+            {socialLinks?.linkedin && (
+              <Button
+                variant="outline"
+                className="bg-primary-light border-black text-black font-medium rounded-xl"
+                asChild
+              >
+                <a href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer">
+                  <Linkedin className="w-4 h-4 mr-2" />
+                  LinkedIn
                 </a>
               </Button>
             )}

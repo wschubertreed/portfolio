@@ -66,6 +66,11 @@ export default defineType({
           title: 'Website',
           type: 'url',
         }),
+        defineField({
+          name: 'linkedin',
+          title: 'LinkedIn',
+          type: 'url',
+        }),
       ],
     }),
   ],
