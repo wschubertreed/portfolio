@@ -84,7 +84,7 @@ export function Footer({ email, socialLinks }: FooterProps) {
           </div>
 
           <div className="mt-12 text-center text-sm text-black opacity-60">
-            <p>© {new Date().getFullYear()} Wildman. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} wildman schubert reed. All rights reserved.</p>
           </div>
         </div>
       </div>
