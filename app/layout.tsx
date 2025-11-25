@@ -11,6 +11,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Wiley Schubert Reed - Music & Film Portfolio",
   description: "Creative portfolio showcasing music, film scores, and video projects",
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: '32x32' },
+    ],
+    apple: '/apple-icon.png',
+  },
 }
 
 export default function RootLayout({
